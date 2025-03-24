@@ -1,10 +1,6 @@
 package game;
 
 public class Battleship {
-
-	
-<<<<<<< HEAD
-=======
 	
 	
 	public static void tablePaint(char[][] table) {
@@ -37,5 +33,4 @@ public class Battleship {
 
 	}
 
->>>>>>> refs/heads/joseenrique
 }
