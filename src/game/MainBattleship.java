@@ -6,8 +6,13 @@ public class MainBattleship {
 
 	public static void main(String[] args) {
 		
-
+		char[][] table = new char[10][10];
+		
+		Battleship.tablePaint(table);
+		
+		
 	}
+
 	
 	public boolean placeShips(char tablero[][], char row, int col) {
 		boolean done = false;
@@ -26,4 +31,5 @@ public class MainBattleship {
 		}
 		return t;
 	}
+
 }
