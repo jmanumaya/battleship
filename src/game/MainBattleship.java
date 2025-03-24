@@ -24,12 +24,6 @@ public class MainBattleship {
 		return done;
 	}
 	
-	public char[][] initializeBoar(int rows, int cols) {
-		char t[][] = new char[rows][cols];
-		for (int i = 0; i < t.length; i++) {
-			Arrays.fill(t[i], '-');
-		}
-		return t;
-	}
+	
 
 }
