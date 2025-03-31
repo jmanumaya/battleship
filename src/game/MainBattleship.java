@@ -8,7 +8,7 @@ public class MainBattleship {
 	
 	static char pos1 = ' ';
 	
-	static char pos2 = ' ';
+	static int pos2;
 
 	public static void main(String[] args) {
 		
@@ -28,19 +28,19 @@ public class MainBattleship {
 		do {
 			
 			System.out.println("This is your table:");
-			/*MuestraTablero()*/
+			game.tablePaint();
 			
 			System.out.println("Where you place a ship?:");
 			questionCords();
 			
-			if(/*Comprobamos coordenadas()*/){
-				
-				if(/*Colocar()*/) {
-					++cont;
-				}
+			if(game.compruebaPosicion(pos1, pos2)){	
+				/*Colocar()*/
+				++contInicial;
+			} else {
+				System.out.println("Invalid chosen location, check that the boat is not close to another one");
 			}
 			
-		} while(cont != 4);
+		} while(contInicial != 4);
 		
 		// Colocar los de la maquina (funcion que va a rellenar directamente el tablero con los barcos aleatoriamente colocados)
 		
@@ -87,8 +87,10 @@ public class MainBattleship {
 	private static void questionCords() {
 		System.out.println("X: ");
 		pos1 = sc.next().charAt(0);
+		--pos1;
 		System.out.println("Y: ");
-		pos2 = sc.next().charAt(0);
+		pos2 = sc.nextInt();
+		--pos2;
 	}
 
 }
