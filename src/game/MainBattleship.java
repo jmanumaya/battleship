@@ -1,10 +1,7 @@
 package game;
 
-<<<<<<< HEAD
 import java.util.Arrays;
-=======
 import java.util.Scanner;
->>>>>>> refs/remotes/origin/jmaya
 
 public class MainBattleship {
 	
@@ -16,13 +13,11 @@ public class MainBattleship {
 
 	public static void main(String[] args) {
 		
-<<<<<<< HEAD
 		char[][] table = new char[10][10];
 		
 		Battleship.tablePaint(table);
 		
 		
-=======
 		Battleship game = new Battleship();
 		
 		int contInicial = 0;
@@ -93,7 +88,6 @@ public class MainBattleship {
 		} while(contJugador != 4 || contMaquina != 4);
 		
 
->>>>>>> refs/remotes/origin/jmaya
 	}
 	
 	private static void questionCords() {
