@@ -84,7 +84,7 @@ public class Battleship {
 	 * board. Marks the board with 'X' if a ship is hit, 'O' if missed.
 	 *
 	 * @param playerBoard The board where the machine attacks.
-	 * @return true if a ship is hit, false otherwise.
+	 * @return true if a ship is hit false otherwise.
 	 */
 	public static boolean machineMove() {
 		Random rand = new Random();
