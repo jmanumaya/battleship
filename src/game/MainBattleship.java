@@ -13,11 +13,6 @@ public class MainBattleship {
 
 	public static void main(String[] args) {
 		
-		char[][] table = new char[10][10];
-		
-		Battleship.tablePaint(table);
-		
-		
 		Battleship game = new Battleship();
 		
 		int contInicial = 0;
@@ -31,16 +26,20 @@ public class MainBattleship {
 		
 		System.out.println("First! place your ships in the table (you have 4 ships)");
 		
+		game.initializeBoardWater(game.getPlayerBoard1());
+		game.initializeBoardWater(game.getMachineBoard1());
+		
 		do {
 			
 			System.out.println("This is your table:");
-			game.tablePaint();
+			game.initializeBoardLines(game.getPlayerBoard2());
+			game.tablePaint(game.getPlayerBoard1());
 			
 			System.out.println("Where you place a ship?:");
 			questionCords();
 			
-			if(game.compruebaPosicion(pos1, pos2)){	
-				/*Colocar()*/
+			if(game.checksPosition(pos1, pos2, game.getPlayerBoard1())){	
+				game.placeShips(game.getPlayerBoard1(), pos1, pos2);
 				++contInicial;
 			} else {
 				System.out.println("Invalid chosen location, check that the boat is not close to another one");
@@ -71,6 +70,7 @@ public class MainBattleship {
 					System.out.println("MEH, You shoot water");
 					++turno;
 				}
+				game.tablePaint(game.getPlayerBoard1());
 				
 			} else {
 				
@@ -100,15 +100,7 @@ public class MainBattleship {
 	}
 
 	
-	public boolean placeShips(char tablero[][], char row, int col) {
-		boolean done = false;
-		int rowNum = row - 'A';
-		if (tablero[rowNum][col-1] != 'B') {
-			tablero[rowNum][col-1] = 'B';
-			done = true;
-		}
-		return done;
-	}
+	
 	
 	
 
