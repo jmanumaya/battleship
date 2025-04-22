@@ -28,7 +28,7 @@ public class Main {
 		BattleShipGame game = new BattleShipGame();
 
 		// Welcome to the game
-		System.out.println("WELCOME TO BATTLESHIP GAME!!!");
+		System.out.println("****************** WELCOME TO BATTLESHIP GAME!!! ******************\n");
 
 		// Initialize all boards
 		game.initializeBoard(game.getMachineTable());
@@ -40,15 +40,16 @@ public class Main {
 		game.tablePaint(game.getPlayerTableShips());
 		System.out.println("Place your ships");
 		do {
-			System.out.println("Introduce the row: ");
+			System.out.println("Introduce the row (A-J): ");
 			row = reader.nextLine().toUpperCase().charAt(0);
-			System.out.println("Introduce the column: ");
+			System.out.println("Introduce the column (1-10): ");
 			column = reader.nextInt();
 			reader.nextLine();
 			if (game.movePlayerShips(row, column, game.getPlayerTableShips())) {
 				countPlayerShips++;
 			} else {
 				System.err.println("The ship could not be placed in position");
+				System.out.println();
 			}
 			game.tablePaint(game.getPlayerTableShips());
 		} while (countPlayerShips < NUM_SHIPS);
@@ -57,42 +58,49 @@ public class Main {
 		game.moveMachineShips();
 		System.out.println("The machine has already placed its ships\n\n");
 
-		System.out.println("START");
+		System.out.println("****************** START ******************");
 		// As long as neither player has sunk all of the opponent's ships, the game
 		// continues
 		while (pointsMachine < NUM_SHIPS && pointsPlayer < NUM_SHIPS) {
 			if (turn == 1) {
 				// Player turn
-				System.out.println("\n\nPLAYER TURN: Find the opponent's ships");
+				System.out.println("\n****************** PLAYER TURN ******************");
+				System.out.println("Find the opponent's ships");
 				game.tablePaint(game.getPlayerTable());
 				System.out.println("Your ships");
 				game.tablePaint(game.getPlayerTableShips());
-				System.out.println("Introduce the row: ");
+				System.out.println("Introduce the row (A-J): ");
 				row = reader.nextLine().toUpperCase().charAt(0);
-				System.out.println("Introduce the column: ");
+				System.out.println("Introduce the column (1-10): ");
 				column = reader.nextInt();
 				reader.nextLine();
 				// We check whether a ship has sunk or not
-				if (game.hitShipTrunPlayer(row, column)) {
+				if (game.hitShipTrunPlayer(row, column) == 1) {
 					pointsPlayer++;
 					System.out.println("SUNKEN SHIP");
-				} else {
+				} else if (game.hitShipTrunPlayer(row, column) == 0) {
 					System.out.println("WATER");
 					// If you haven't sunk a ship, the turn goes to the machine
+					turn = 2;
+				} else {
+					System.out.println("THE SHIP WAS ALREADY SUNKEN");
 					turn = 2;
 				}
 				game.tablePaint(game.getPlayerTable());
 			} else {
 				// Machine turn
-				System.out.println("\n\nMACHINE TURN");
+				System.out.println("\n****************** MACHINE TURN ******************");
 				// We check whether a ship has sunk or not
-				if (game.hitShipTrunMachine()) {
+				if (game.hitShipTrunMachine() == 1) {
 					pointsMachine++;
 					System.out.println("SUNKEN SHIP");
-				} else {
+				} else if (game.hitShipTrunMachine() == 0){
 					System.out.println("WATER");
 					// If you haven't sunk a ship, the turn goes to the player
 					turn = 1;
+				} else {
+					System.out.println("THE SHIP WAS ALREADY SUNKEN");
+					turn = 2;
 				}
 				game.tablePaint(game.getMachineTable());
 			}
@@ -108,7 +116,7 @@ public class Main {
 		}
 
 		// We show all the boards at the end of the game
-		System.out.println("END OF THE GAME\nRESULTS:");
+		System.out.println("****************** END OF THE GAME ******************\nRESULTS:");
 		System.out.println("Player ship board");
 		game.tablePaint(game.getPlayerTableShips());
 		System.out.println("Machine ship board");

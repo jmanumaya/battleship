@@ -9,25 +9,30 @@ import java.util.Random;
  */
 public class BattleShipGame {
 	/**
-	 * Attribute indicating water with a line
+	 * Constant indicating water with a line
 	 */
-	private static char water = '-';
+	public static final char WATER = '-';
 	/**
-	 * Attribute indicating ship with a B
+	 * Constant indicating ship with a B
 	 */
-	private static char ship = 'B';
+	public static final char SHIP = 'B';
 	/**
-	 * Attribute indicating that the shot was fired at water
+	 * Constant indicating that the shot was fired at water
 	 */
-	private static char hitWater = 'X';
+	public static final char HIT_WATER = 'X';
 	/**
-	 * Attribute indicating that the shot was fired at ship
+	 * Constant indicating that the shot was fired at ship
 	 */
-	private static char hitShip = 'O';
+	public static final char HIT_SHIP = 'O';
 	/**
-	 * Attribute indicating the letter A
+	 * Constant indicating the letter A
 	 */
-	private static char letterA = 'A';
+	public static final char LETTER_A = 'A';
+	/**
+	 * Constant that indicates the number of ships to be placed
+	 */
+	public static final int NUM_SHIPS = 4;
+	
 	/**
 	 * Attribute indicating a row
 	 */
@@ -36,11 +41,6 @@ public class BattleShipGame {
 	 * Attribute indicating a column
 	 */
 	private int column;
-	
-	/**
-	 * Constant that indicates the number of ships to be placed
-	 */
-	private static final int NUM_SHIPS = 4;
 
 	/**
 	 * We create the Random
@@ -107,7 +107,7 @@ public class BattleShipGame {
 	 */
 	public void initializeBoard(char[][] table) {
 		for (int i = 0; i < table.length; i++) {
-			Arrays.fill(table[i], water);
+			Arrays.fill(table[i], WATER);
 		}
 	}
 
@@ -126,7 +126,7 @@ public class BattleShipGame {
 
 		// Print rows with letter labels
 		for (int i = 0; i < table.length; i++) {
-			System.out.print((char) (letterA + i) + "\t");
+			System.out.print((char) (LETTER_A + i) + "\t");
 
 			for (int j = 0; j < table[i].length; j++) {
 				System.out.print(table[i][j] + "\t");
@@ -154,22 +154,23 @@ public class BattleShipGame {
         }
         
         // Check if there's already a ship at this position
-        if (table[row][column] == ship) {
+        if (table[row][column] == SHIP) {
         	placed = false;
         }
         
         // Check all adjacent cells for ships (including diagonals)
         for (int i = Math.max(0, row - 1); i <= Math.min(table.length - 1, row + 1); i++) {
             for (int j = Math.max(0, column - 1); j <= Math.min(table[0].length - 1, column + 1); j++) {
-                if (table[i][j] == ship) {
+                if (table[i][j] == SHIP) {
                 	placed = false;
                 }
             }
         }
-			// If the ship can be placed, it is placed on the board
-			if (placed) {
-				table[row][column] = ship;
-			}
+        
+		// If the ship can be placed, it is placed on the board
+		if (placed) {
+			table[row][column] = SHIP;
+		}
 		
 		return placed;
 	}
@@ -197,7 +198,7 @@ public class BattleShipGame {
 	 * @param columnShip The column received from the user
 	 */
 	private void correctPositions(char rowShip, int columnShip) {
-		row = rowShip - letterA;
+		row = rowShip - LETTER_A;
 		column = columnShip - 1;
 	}
 
@@ -228,19 +229,21 @@ public class BattleShipGame {
 	 * 
 	 * @param rowShip    The row indicated by the user
 	 * @param columnShip The column indicated by the user
-	 * @return If it has hit a ship it returns true, otherwise false
+	 * @return If the hit has hit a ship it returns 1, if there is water 0 and if the ship has already been sunk 2
 	 */
-	public boolean hitShipTrunPlayer(char rowShip, int columnShip) {
-		boolean hit = false;
+	public int hitShipTrunPlayer(char rowShip, int columnShip) {
+		int hit = 0;
 		// We get the row and column with the correct values ​​for the table
 		correctPositions(rowShip, columnShip);
-		if (machineTableShips[row][column] == ship) {
-			if (playerTable[row][column] != hitShip) {
-				playerTable[row][column] = hitShip;
-				hit = true;
+		if (machineTableShips[row][column] == SHIP) {
+			if (playerTable[row][column] != HIT_SHIP) {
+				playerTable[row][column] = HIT_SHIP;
+				hit = 1;
+			} else {
+				hit = 2;
 			}
 		} else {
-			playerTable[row][column] = hitWater;
+			playerTable[row][column] = HIT_WATER;
 		}
 
 		return hit;
@@ -250,22 +253,24 @@ public class BattleShipGame {
 	 * Function that generates two random values ​​for the row and column and checks
 	 * if the coordinates have given a ship on the user's board
 	 * 
-	 * @return If it has hit a ship it returns true, otherwise false
+	 * @return If the hit has hit a ship it returns 1, if there is water 0 and if the ship has already been sunk 2
 	 */
-	public boolean hitShipTrunMachine() {
-		boolean hit = false;
+	public int hitShipTrunMachine() {
+		int hit = 0;
 		// We generate a random value from 0 to the length of the board for the row and
 		// another value for the column
 		int row = rand.nextInt(0, machineTable.length);
 		int column = rand.nextInt(0, machineTable.length);
 
-		if (playerTableShips[row][column] == ship) {
-			if (machineTable[row][column] != hitShip) {
-				machineTable[row][column] = hitShip;
-				hit = true;
+		if (playerTableShips[row][column] == SHIP) {
+			if (machineTable[row][column] != HIT_SHIP) {
+				machineTable[row][column] = HIT_SHIP;
+				hit = 1;
+			} else {
+				hit = 2;
 			}
 		} else {
-			machineTable[row][column] = hitWater;
+			machineTable[row][column] = HIT_WATER;
 		}
 
 		return hit;
