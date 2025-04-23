@@ -20,6 +20,8 @@ public class Main {
 		// Attribute that defines the value of the turns. The first turn is the player
 		// and the second turn is the machine
 		int turn = 1;
+		// Attribute that defines the final result of a machine's hit or player's hit
+		int result;
 
 		// Constant that indicates the number of ships to be placed
 		final int NUM_SHIPS = 4;
@@ -75,33 +77,34 @@ public class Main {
 				column = reader.nextInt();
 				reader.nextLine();
 				// We check whether a ship has sunk or not
-				if (game.hitShipTrunPlayer(row, column) == 1) {
+				result = game.hitShipTrunPlayer(row, column);
+				if (result == 1) {
 					pointsPlayer++;
 					System.out.println("SUNKEN SHIP");
-				} else if (game.hitShipTrunPlayer(row, column) == 0) {
+				} else if (result == 0) {
 					System.out.println("WATER");
 					// If you haven't sunk a ship, the turn goes to the machine
 					turn = 2;
 				} else {
-					System.out.println("THE SHIP WAS ALREADY SUNKEN");
-					turn = 2;
+					System.out.println("The position has already been discovered");
+					System.out.println("Choose another position that has not been discovered");
 				}
 				game.tablePaint(game.getPlayerTable());
 			} else {
 				// Machine turn
 				System.out.println("\n****************** MACHINE TURN ******************");
 				// We check whether a ship has sunk or not
-				if (game.hitShipTrunMachine() == 1) {
-					pointsMachine++;
-					System.out.println("SUNKEN SHIP");
-				} else if (game.hitShipTrunMachine() == 0){
-					System.out.println("WATER");
-					// If you haven't sunk a ship, the turn goes to the player
-					turn = 1;
-				} else {
-					System.out.println("THE SHIP WAS ALREADY SUNKEN");
-					turn = 2;
-				}
+				do {
+					result = game.hitShipTrunMachine();
+					if (result == 1) {
+						pointsMachine++;
+						System.out.println("SUNKEN SHIP");
+					} else if (result == 0) {
+						System.out.println("WATER");
+						// If you haven't sunk a ship, the turn goes to the player
+						turn = 1;
+					}
+				} while (result != 1 && result != 0);
 				game.tablePaint(game.getMachineTable());
 			}
 		}

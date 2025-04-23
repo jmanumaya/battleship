@@ -32,7 +32,7 @@ public class BattleShipGame {
 	 * Constant that indicates the number of ships to be placed
 	 */
 	public static final int NUM_SHIPS = 4;
-	
+
 	/**
 	 * Attribute indicating a row
 	 */
@@ -50,19 +50,19 @@ public class BattleShipGame {
 	/**
 	 * Board where the machine will place its ships
 	 */
-	private char machineTableShips[][] = new char[10][10];
+	private char machineTableShips[][] = new char[5][5];
 	/**
 	 * Board where the machine will shoot
 	 */
-	private char machineTable[][] = new char[10][10];
+	private char machineTable[][] = new char[5][5];
 	/**
 	 * Board where the player will place its ships
 	 */
-	private char playerTableShips[][] = new char[10][10];
+	private char playerTableShips[][] = new char[5][5];
 	/**
 	 * Board where the player will shoot
 	 */
-	private char playerTable[][] = new char[10][10];
+	private char playerTable[][] = new char[5][5];
 
 	/**
 	 * MachineTableShips get method that returns its value
@@ -149,29 +149,29 @@ public class BattleShipGame {
 		boolean placed = true;
 
 		// Check if position is within bounds
-        if (row < 0 || row >= table.length || column < 0 || column >= table[0].length) {
-            return false;
-        }
-        
-        // Check if there's already a ship at this position
-        if (table[row][column] == SHIP) {
-        	placed = false;
-        }
-        
-        // Check all adjacent cells for ships (including diagonals)
-        for (int i = Math.max(0, row - 1); i <= Math.min(table.length - 1, row + 1); i++) {
-            for (int j = Math.max(0, column - 1); j <= Math.min(table[0].length - 1, column + 1); j++) {
-                if (table[i][j] == SHIP) {
-                	placed = false;
-                }
-            }
-        }
-        
+		if (row < 0 || row >= table.length || column < 0 || column >= table[0].length) {
+			return false;
+		}
+
+		// Check if there's already a ship at this position
+		if (table[row][column] == SHIP) {
+			placed = false;
+		}
+
+		// Check all adjacent cells for ships (including diagonals)
+		for (int i = Math.max(0, row - 1); i <= Math.min(table.length - 1, row + 1); i++) {
+			for (int j = Math.max(0, column - 1); j <= Math.min(table[0].length - 1, column + 1); j++) {
+				if (table[i][j] == SHIP) {
+					placed = false;
+				}
+			}
+		}
+
 		// If the ship can be placed, it is placed on the board
 		if (placed) {
 			table[row][column] = SHIP;
 		}
-		
+
 		return placed;
 	}
 
@@ -229,7 +229,9 @@ public class BattleShipGame {
 	 * 
 	 * @param rowShip    The row indicated by the user
 	 * @param columnShip The column indicated by the user
-	 * @return If the hit has hit a ship it returns 1, if there is water 0 and if the ship has already been sunk 2
+	 * @return If the hit has hit a ship it returns 1, if there is water 0 and if
+	 *         the ship has already been sunk 2. If water has already been
+	 *         discovered on the board it will be 3.
 	 */
 	public int hitShipTrunPlayer(char rowShip, int columnShip) {
 		int hit = 0;
@@ -242,6 +244,8 @@ public class BattleShipGame {
 			} else {
 				hit = 2;
 			}
+		} else if (playerTable[row][column] == HIT_WATER) {
+			hit = 3;
 		} else {
 			playerTable[row][column] = HIT_WATER;
 		}
@@ -253,7 +257,9 @@ public class BattleShipGame {
 	 * Function that generates two random values ​​for the row and column and checks
 	 * if the coordinates have given a ship on the user's board
 	 * 
-	 * @return If the hit has hit a ship it returns 1, if there is water 0 and if the ship has already been sunk 2
+	 * @return If the hit has hit a ship it returns 1, if there is water 0 and if
+	 *         the ship has already been sunk 2. If water has already been
+	 *         discovered on the board it will be 3.
 	 */
 	public int hitShipTrunMachine() {
 		int hit = 0;
@@ -269,6 +275,8 @@ public class BattleShipGame {
 			} else {
 				hit = 2;
 			}
+		} else if (machineTable[row][column] == HIT_WATER) {
+			hit = 3;
 		} else {
 			machineTable[row][column] = HIT_WATER;
 		}
