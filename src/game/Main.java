@@ -77,7 +77,7 @@ public class Main {
 				column = reader.nextInt();
 				reader.nextLine();
 				// We check whether a ship has sunk or not
-				result = game.hitShipTrunPlayer(row, column);
+				result = game.hitShipTurnPlayer(row, column);
 				if (result == 1) {
 					pointsPlayer++;
 					System.out.println("SUNKEN SHIP");
@@ -95,7 +95,7 @@ public class Main {
 				System.out.println("\n****************** MACHINE TURN ******************");
 				// We check whether a ship has sunk or not
 				do {
-					result = game.hitShipTrunMachine();
+					result = game.hitShipTurnMachine();
 					if (result == 1) {
 						pointsMachine++;
 						System.out.println("SUNKEN SHIP");
