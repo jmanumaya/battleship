@@ -42,9 +42,9 @@ public class Main {
 		game.tablePaint(game.getPlayerTableShips());
 		System.out.println("Place your ships");
 		do {
-			System.out.println("Introduce the row (A-J): ");
+			System.out.println("Introduce the row: ");
 			row = reader.nextLine().toUpperCase().charAt(0);
-			System.out.println("Introduce the column (1-10): ");
+			System.out.println("Introduce the column: ");
 			column = reader.nextInt();
 			reader.nextLine();
 			if (game.movePlayerShips(row, column, game.getPlayerTableShips())) {
@@ -71,9 +71,9 @@ public class Main {
 				game.tablePaint(game.getPlayerTable());
 				System.out.println("Your ships");
 				game.tablePaint(game.getPlayerTableShips());
-				System.out.println("Introduce the row (A-J): ");
+				System.out.println("Introduce the row: ");
 				row = reader.nextLine().toUpperCase().charAt(0);
-				System.out.println("Introduce the column (1-10): ");
+				System.out.println("Introduce the column: ");
 				column = reader.nextInt();
 				reader.nextLine();
 				// We check whether a ship has sunk or not

@@ -41,6 +41,9 @@ public class BattleShipGame {
 	 * Attribute indicating a column
 	 */
 	private int column;
+	
+	private final int COL_TABLE = 5;
+	private final int ROW_TABLE = 5;
 
 	/**
 	 * We create the Random
@@ -50,19 +53,19 @@ public class BattleShipGame {
 	/**
 	 * Board where the machine will place its ships
 	 */
-	private char machineTableShips[][] = new char[10][10];
+	private char machineTableShips[][] = new char[ROW_TABLE][COL_TABLE];
 	/**
 	 * Board where the machine will shoot
 	 */
-	private char machineTable[][] = new char[10][10];
+	private char machineTable[][] = new char[ROW_TABLE][COL_TABLE];
 	/**
 	 * Board where the player will place its ships
 	 */
-	private char playerTableShips[][] = new char[10][10];
+	private char playerTableShips[][] = new char[ROW_TABLE][COL_TABLE];
 	/**
 	 * Board where the player will shoot
 	 */
-	private char playerTable[][] = new char[10][10];
+	private char playerTable[][] = new char[ROW_TABLE][COL_TABLE];
 
 	/**
 	 * MachineTableShips get method that returns its value
